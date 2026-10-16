@@ -1,0 +1,570 @@
+<!doctype html>
+<html lang="en-AU">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>SteelTakeoff AI | Project workspace</title>
+    <style>
+      :root {
+        font-family:
+          Inter,
+          ui-sans-serif,
+          system-ui,
+          -apple-system,
+          "Segoe UI",
+          Arial,
+          sans-serif;
+        color: #15233a;
+        background: #f3f6fa;
+        font-size: 14px;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+      }
+      button,
+      input,
+      select,
+      textarea {
+        font: inherit;
+      }
+      button {
+        cursor: pointer;
+      }
+      header {
+        height: 72px;
+        background: #10223d;
+        color: #fff;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 28px;
+        gap: 16px;
+      }
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 13px;
+      }
+      .logo {
+        width: 40px;
+        height: 40px;
+        background: #3b82f6;
+        border-radius: 11px;
+        display: grid;
+        place-items: center;
+        font-size: 25px;
+        font-weight: 900;
+      }
+      .brand b {
+        font-size: 18px;
+      }
+      .brand small {
+        display: block;
+        color: #a8bbd5;
+        margin-top: 2px;
+      }
+      main {
+        max-width: 1380px;
+        margin: auto;
+        padding: 26px 24px 70px;
+      }
+      .topActions {
+        display: flex;
+        gap: 9px;
+        flex-wrap: wrap;
+      }
+      .btn {
+        border: 1px solid #cbd7e6;
+        background: #fff;
+        color: #142744;
+        border-radius: 9px;
+        padding: 10px 14px;
+        font-weight: 650;
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        justify-content: center;
+      }
+      .btn:hover {
+        background: #ebf3ff;
+      }
+      .btn.primary {
+        background: #2563eb;
+        color: #fff;
+        border-color: #2563eb;
+      }
+      .btn.primary:hover {
+        background: #1d4ed8;
+      }
+      .btn.danger {
+        color: #a12437;
+      }
+      .btn.small {
+        padding: 6px 9px;
+        font-size: 12px;
+      }
+      .tabs {
+        display: flex;
+        overflow: auto;
+        gap: 6px;
+        margin: 23px 0 19px;
+        padding: 6px;
+        background: #e6edf6;
+        border-radius: 12px;
+      }
+      .tab {
+        border: 0;
+        background: transparent;
+        border-radius: 8px;
+        padding: 11px 16px;
+        color: #465b75;
+        white-space: nowrap;
+        font-weight: 700;
+      }
+      .tab.active {
+        background: #fff;
+        color: #1d4ed8;
+        box-shadow: 0 2px 6px #142d4a12;
+      }
+      .cards {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 13px;
+        margin-bottom: 20px;
+      }
+      .metric {
+        padding: 18px;
+        border: 1px solid #dee6f1;
+        background: #fff;
+        border-radius: 13px;
+      }
+      .metric label {
+        display: block;
+        color: #718097;
+        font-size: 12px;
+        font-weight: 750;
+        text-transform: uppercase;
+        letter-spacing: 0.045em;
+      }
+      .metric strong {
+        display: block;
+        font-size: 25px;
+        margin: 8px 0 5px;
+        color: #10223d;
+      }
+      .metric small {
+        color: #6d7f96;
+        font-size: 12px;
+      }
+      .metric.positive {
+        border-left: 4px solid #15803d;
+      }
+      .metric.warning {
+        border-left: 4px solid #dd9631;
+      }
+      .two {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 18px;
+      }
+      .box {
+        background: #fff;
+        border: 1px solid #dde6f0;
+        border-radius: 13px;
+        padding: 21px;
+        margin-bottom: 18px;
+        box-shadow: 0 2px 8px #163a6207;
+      }
+      .box h2 {
+        margin: 0 0 8px;
+        font-size: 18px;
+      }
+      .box h3 {
+        margin: 0 0 12px;
+        font-size: 15px;
+      }
+      .sub {
+        color: #6c7e93;
+        line-height: 1.55;
+        margin: 0 0 16px;
+      }
+      .notice {
+        background: #fff8e8;
+        border: 1px solid #f3dba1;
+        color: #80601d;
+        border-radius: 9px;
+        padding: 12px 13px;
+        margin: 14px 0;
+        line-height: 1.5;
+      }
+      .oknote {
+        background: #edfbf3;
+        border-color: #bce9cb;
+        color: #136b3f;
+      }
+      .muted {
+        color: #718097;
+      }
+      .formgrid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 14px;
+      }
+      .field {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+        min-width: 0;
+      }
+      .field label {
+        font-weight: 700;
+        color: #3a4d64;
+        font-size: 12px;
+      }
+      .field input,
+      .field select,
+      .field textarea,
+      .cellInput {
+        border: 1px solid #cfdbea;
+        background: #fff;
+        border-radius: 8px;
+        padding: 10px;
+        width: 100%;
+        color: #11253f;
+        outline-offset: 2px;
+      }
+      .field textarea {
+        min-height: 85px;
+        resize: vertical;
+      }
+      .field input:focus,
+      .field select:focus {
+        outline: 2px solid #b5d4ff;
+      }
+      .hint {
+        font-size: 11px;
+        color: #79899e;
+      }
+      .tablewrap {
+        overflow: auto;
+        border: 1px solid #dde6ee;
+        border-radius: 9px;
+      }
+      table {
+        border-collapse: collapse;
+        width: 100%;
+        min-width: 850px;
+        font-size: 12px;
+      }
+      th {
+        background: #eef3f9;
+        color: #42566f;
+        text-align: left;
+        white-space: nowrap;
+        font-size: 11px;
+        text-transform: uppercase;
+        letter-spacing: 0.035em;
+      }
+      th,
+      td {
+        padding: 10px;
+        border-bottom: 1px solid #e5ebf2;
+        vertical-align: middle;
+      }
+      tbody tr:last-child td {
+        border-bottom: 0;
+      }
+      tbody tr:hover {
+        background: #fafcff;
+      }
+      .cellInput {
+        padding: 7px;
+        border-radius: 6px;
+        min-width: 62px;
+        font-size: 12px;
+      }
+      .short {
+        max-width: 84px;
+      }
+      .mid {
+        min-width: 120px;
+      }
+      .wide {
+        min-width: 170px;
+      }
+      .right {
+        text-align: right;
+      }
+      .pill {
+        display: inline-block;
+        background: #e8f3ff;
+        color: #1d4ed8;
+        border-radius: 100px;
+        padding: 5px 9px;
+        font-weight: 700;
+        font-size: 11px;
+      }
+      .pill.orange {
+        background: #fff0df;
+        color: #a86115;
+      }
+      .pill.green {
+        background: #dcf8e7;
+        color: #177440;
+      }
+      .steps {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 9px;
+        flex-wrap: wrap;
+      }
+      .statstrip {
+        display: flex;
+        gap: 20px;
+        flex-wrap: wrap;
+        padding: 13px;
+        background: #f2f6fc;
+        border-radius: 9px;
+        margin-top: 15px;
+      }
+      .statstrip b {
+        color: #10213b;
+      }
+      pre {
+        font-family: ui-monospace, Consolas, monospace;
+        white-space: pre-wrap;
+        line-height: 1.6;
+        background: #f5f8fc;
+        border: 1px solid #e2e8f3;
+        border-radius: 9px;
+        padding: 18px;
+        overflow: auto;
+      }
+      .bar {
+        display: flex;
+        height: 26px;
+        width: 100%;
+        background: #dde6f2;
+        border-radius: 5px;
+        overflow: hidden;
+      }
+      .piece {
+        background: #2563eb;
+        border-right: 2px solid #fff;
+        height: 100%;
+      }
+      .waste {
+        background: #d2dbe8;
+        height: 100%;
+      }
+      .grip {
+        background: #c48328;
+        height: 100%;
+      }
+      .tiny {
+        font-size: 12px;
+        line-height: 1.65;
+      }
+      .row {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        flex-wrap: wrap;
+      }
+      .row.space {
+        justify-content: space-between;
+      }
+      .largeprice {
+        font-weight: 850;
+        font-size: 29px;
+        color: #17386c;
+      }
+      .rule {
+        border-top: 1px solid #e2e9f0;
+        padding-top: 15px;
+        margin-top: 16px;
+      }
+      .badge-good {
+        color: #168249;
+        font-weight: 700;
+      }
+      .badge-warn {
+        color: #b05b12;
+        font-weight: 700;
+      }
+      .quoteText {
+        width: 100%;
+        min-height: 330px;
+        border: 1px solid #cfdbea;
+        border-radius: 9px;
+        line-height: 1.75;
+        font-size: 14px;
+        padding: 15px;
+        resize: vertical;
+      }
+      .footer {
+        font-size: 12px;
+        color: #7689a0;
+        margin-top: 22px;
+        text-align: center;
+      }
+      .hidden {
+        display: none !important;
+      }
+      @media (max-width: 960px) {
+        .cards {
+          grid-template-columns: repeat(2, 1fr);
+        }
+        .two,
+        .formgrid {
+          grid-template-columns: 1fr 1fr;
+        }
+      }
+      @media (max-width: 580px) {
+        header {
+          height: auto;
+          padding: 14px;
+          flex-wrap: wrap;
+        }
+        main {
+          padding: 18px 12px;
+        }
+        .cards,
+        .two,
+        .formgrid {
+          grid-template-columns: 1fr;
+        }
+        .box {
+          padding: 15px;
+        }
+        .tab {
+          padding: 9px 11px;
+        }
+      }
+      @media print {
+        header,
+        .tabs,
+        .topActions,
+        .noprint,
+        button {
+          display: none !important;
+        }
+        body {
+          background: white;
+        }
+        main {
+          padding: 0;
+        }
+        .box {
+          break-inside: avoid;
+          box-shadow: none;
+        }
+        .cards {
+          grid-template-columns: repeat(4, 1fr);
+        }
+      }
+    </style>
+    <style>
+      .pdfSplit {
+        display: grid;
+        grid-template-columns: minmax(0, 1.7fr) minmax(250px, 0.8fr);
+        gap: 18px;
+        margin-top: 15px;
+      }
+      .pdfDrawing {
+        min-width: 0;
+      }
+      .pdfSide {
+        border: 1px solid #d7e2f0;
+        border-radius: 10px;
+        padding: 14px;
+        height: fit-content;
+        background: #f8faff;
+      }
+      .pdfSide h3 {
+        margin: 0 0 9px;
+      }
+      .pdfCanvas {
+        position: relative;
+        border: 1px solid #ccd6e6;
+        background: #e1e8f1;
+        border-radius: 7px;
+        overflow: hidden;
+        line-height: 0;
+      }
+      .pdfCanvas img {
+        display: block;
+        width: 100%;
+        height: auto;
+      }
+      .pdfHighlight {
+        position: absolute;
+        border: 3px solid #e05e20;
+        background: #f6ab3038;
+        pointer-events: none;
+        box-shadow: 0 0 0 1px #fff;
+      }
+      @media (max-width: 1000px) {
+        .pdfSplit {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+    <link rel="stylesheet" href="/workspace.css" />
+  </head>
+  <body>
+    <header>
+      <div class="brand">
+        <div class="logo">S</div>
+        <div>
+          <b>SteelTakeoff AI</b
+          ><small>Australian steel estimating · Local workspace</small>
+        </div>
+      </div>
+      <div class="topActions">
+        <button class="btn small" onclick="newProject()">New enquiry</button
+        ><button class="btn small" onclick="exportJSON()">Export JSON</button
+        ><button class="btn small" onclick="persistProject()">
+          Save project</button
+        ><button
+          class="btn small"
+          onclick="document.getElementById('import').click()"
+        >
+          Open project</button
+        ><input
+          id="import"
+          class="hidden"
+          type="file"
+          accept="application/json,.json"
+          onchange="importJSON(event)"
+        />
+      </div>
+    </header>
+    <main>
+      <div class="steps">
+        <div>
+          <h1 style="font-size: 27px; margin: 0 0 6px">Project workspace</h1>
+          <div class="muted">
+            Drawings, purchasing and commercial review in one local workspace.
+          </div>
+        </div>
+        <span id="saveStatus" class="pill">Connecting to local database…</span>
+      </div>
+      <nav class="tabs" id="tabs"></nav>
+      <div id="metrics"></div>
+      <div id="view"></div>
+      <p class="footer">
+        SteelTakeoff AI — Local-first estimator · Prices in AUD, excluding GST ·
+        Drawing candidates require approval.
+      </p>
+    </main>
+    <script src="/app.js"></script>
+    <script src="/pdf_extension.js"></script>
+    <script src="/settings.js"></script>
+    <script src="/workspace.js"></script>
+  </body>
+</html>

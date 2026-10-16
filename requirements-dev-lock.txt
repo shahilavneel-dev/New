@@ -1,0 +1,9 @@
+-r requirements-lock.txt
+Pygments==2.21.0
+greenlet==3.5.6
+iniconfig==2.3.1
+packaging==26.3
+playwright==1.64.0
+pluggy==1.7.0
+pyee==14.0.0
+pytest==9.1.1
